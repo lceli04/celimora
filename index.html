@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cooperativa Celi Mora</title>
+<!--
+  Página instalable de la Cooperativa Celi Mora.
+  Existe solo para que el acceso directo del celular muestre el logo:
+  Apps Script no permite cambiar el ícono de script.google.com.
+  Al abrirse, lleva directo al portal de administración.
+-->
+<meta name="theme-color" content="#013364">
+<meta name="description" content="Portal de administración de la Cooperativa Celi Mora">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icono-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icono-180.png">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    background: #FFFFFF; color: #101828;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; padding: 24px;
+    text-align: center;
+  }
+  img { width: 180px; animation: latido 1.6s ease-in-out infinite; }
+  @keyframes latido { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+  p { font-size: 14px; color: #5E6B82; }
+  a {
+    display: inline-block; padding: 12px 22px; border-radius: 999px;
+    background: #013364; color: #FFFFFF; font-weight: 700; text-decoration: none;
+  }
+</style>
+</head>
+<body>
+  <img src="logo-completo-360.png" alt="Cooperativa Celi Mora">
+  <p>Abriendo el portal…</p>
+  <a id="abrir" href="#">Abrir portal</a>
+
+<script>
+  // Dirección del portal publicado en Apps Script (implementación de la
+  // aplicación web). Si cambias de implementación, actualiza solo esta línea.
+  var URL_PORTAL = 'https://script.google.com/macros/s/AKfycbzoLednZVsOXTLAx3tbd2ZBQhPrmUs6MgFrO6NOUhE52DzsseP4zcwHEVMp-d1SYQVyng/exec';
+
+  document.getElementById('abrir').href = URL_PORTAL;
+
+  // Requisito para que Android ofrezca "Instalar app".
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function() {});
+  }
+
+  setTimeout(function() { window.location.replace(URL_PORTAL); }, 600);
+</script>
+</body>
+</html>
